@@ -1,0 +1,270 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'poppins regular';
+}
+
+body {
+    margin: 0;
+    background-color: #22252c;
+    color: #fff;
+}
+
+button {
+    cursor: pointer;
+}
+
+@font-face {
+    font-family: "impact";
+    src: url(../fonts/impact/impact.ttf);
+}
+
+@font-face {
+    font-family: "poppins regular";
+    src: url(../fonts/poppins/Poppins-Regular.ttf);
+}
+
+@font-face {
+    font-family: "poppins medium";
+    src: url(../fonts/poppins/Poppins-Medium.ttf);
+}
+
+@font-face {
+    font-family: "GemunuLibre";
+    src: url(../fonts/GemunuLibre/GemunuLibre-ExtraBold.otf);
+}
+
+@font-face {
+    font-family: "ZenDots";
+    src: url(../fonts/ZenDots/ZenDots-Regular.ttf);
+}
+
+@font-face {
+    font-family: "karantina";
+    src: url(../fonts/karantina/Karantina-Bold.ttf);
+}
+
+.main-area {
+    background-color: #383b42;
+    border-radius: 1.6em;
+    padding: 20px;
+}
+
+.main-header {
+    background-image: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
+    border-radius: 2em;
+    padding: 1rem;
+    margin-bottom: 40px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding-inline-end: 20px;
+}
+
+nav a {
+    font-family: 'poppins regular', sans-serif;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.3125rem;
+}
+
+i.fa-search {
+    position: absolute;
+    left: 390px;
+    background-color: #22252c;
+    background: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    z-index: 5;
+}
+
+[name=search] {
+    border-radius: 1.8125em;
+    background-color: #22252c;
+    border: none;
+    height: 40px;
+    width: 400px;
+    color: #fff;
+    padding: 20px;
+    font-family: 'poppins regular';
+}
+
+[name=search]:focus {
+    outline: none;
+}
+
+.search {
+    margin-bottom: 20px;
+}
+
+.tags {
+    background-color: #87898d;
+    border-radius: 1.5625em;
+    gap: 10px;
+    padding: 10px;
+}
+
+button.more {
+    font-family: 'poppins regular';
+    color: #fff;
+    background: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
+    border: none;
+    border-radius: 2em;
+    padding: 10px 25px;
+    font-size: 1.125em;
+}
+
+.gallery>div>img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.logo {
+    height: 40px;
+    padding: 10px 0 10px 20px;
+    object-fit: cover;
+    min-width: 100px;
+}
+
+.logo img {
+    height: 100%;
+    width: 100%;
+}
+
+.gallery-section, #memes, .canvas-section {
+    display: none;
+}
+
+.impact {
+    font-family: 'impact';
+    font-size: 20px;
+}
+
+.GemunuLibre {
+    font-family: 'GemunuLibre';
+    font-size: 20px;
+}
+
+.karantina {
+    font-family: 'karantina';
+    font-size: 20px;
+}
+
+.ZenDots {
+    font-family: 'ZenDots';
+    font-size: 20px;
+}
+
+canvas {
+    display: block;
+    margin: 0 auto;
+    background-color: white;
+}
+
+.canvas-container {
+    background-color: rgb(0, 0, 0);
+    width: 40%;
+    height: 80%;
+    padding: 20px;
+}
+
+.controllers {
+    width: 40%;
+    height: 80%;
+    gap: 30px;
+}
+
+[name=text-line] {
+    background-color: #ebeef3;
+    border-radius: 1.5em;
+    border: none;
+    width: 450px;
+    padding: .6rem;
+    align-self: center;
+    text-align: center;
+    font-family: 'poppins regular';
+}
+
+[name=text-line]:focus {
+    outline: none;
+}
+
+.buttons {
+    gap: 20px;
+    align-self: center;
+}
+
+.main-part {
+    grid-template-areas: "font-up font-down align-left align-center align-right" "fonts fonts fonts fonts color";
+}
+
+.font-up {
+    grid-area: font-up;
+}
+
+.font-down {
+    grid-area: font-down;
+}
+
+.align-left {
+    grid-area: align-left;
+}
+
+.align-center {
+    grid-area: align-center;
+}
+
+.align-right {
+    grid-area: align-right;
+}
+
+.fonts {
+    grid-area: fonts;
+}
+
+.pcr-button {
+    grid-area: color;
+}
+
+/* HELPERS */
+
+.flex {
+    display: flex;
+}
+
+.flex.space-between {
+    justify-content: space-between;
+}
+
+.flex.space-around {
+    justify-content: space-around;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.active {
+    display: block;
+}
+
+.clean-link {
+    text-decoration: none;
+}
+
+.flex.column {
+    flex-direction: column;
+}

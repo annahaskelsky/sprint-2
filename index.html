@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meme Generator</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css" />
+    <!-- 'classic' theme -->
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/main.css" />
+</head>
+
+<body onload="onInit()">
+    <div id="gallery" class="gallery-section" data-target="gallery">
+        <header class="main-header flex space-between">
+            <div class="logo"><img src="./images-square/LOGO.png" alt="" /></div>
+            <nav>
+                <a href="#">Gallery</a>
+                <a href="#">Memes</a>
+                <a href="#">About</a>
+            </nav>
+        </header>
+
+        <div class="main-area">
+            <section class="search flex space-between">
+                <input type="text" name="search" autocomplete="off" />
+                <i class="fas fa-search fa-lg"></i>
+                <div class="tags flex">
+                    <div>Funny</div>
+                    <div>Animals</div>
+                    <div>Men</div>
+                    <div>Women</div>
+                    <div>Comic</div>
+                    <div>Smile</div>
+                </div>
+                <button class="more">More</button>
+            </section>
+
+            <section class="gallery grid">
+                <div>
+                    <img src="./images-square/1.jpg" data-id="1" alt="" onclick="onOpenCanvas(this)" />
+                </div>
+                <div>
+                    <img src="./images-square/2.jpg" data-id="2" alt="" onclick="onOpenCanvas(this)" />
+                </div>
+                <div>
+                    <img src="./images-square/3.jpg" data-id="3" alt="" onclick="onOpenCanvas(this)" />
+                </div>
+                <div>
+                    <img src="./images-square/4.jpg" data-id="4" alt="" onclick="onOpenCanvas(this)" />
+                </div>
+                <div>
+                    <img src="./images-square/5.jpg" data-id="5" alt="" onclick="onOpenCanvas(this)" />
+                </div>
+                <div>
+                    <img src="./images-square/6.jpg" data-id="6" alt="" onclick="onOpenCanvas(this)" />
+                </div>
+                <div>
+                    <img src="./images-square/7.jpg" data-id="7" alt="" onclick="onOpenCanvas(this)" />
+                </div>
+                <div>
+                    <img src="./images-square/8.jpg" data-id="8" alt="" onclick="onOpenCanvas(this)" />
+                </div>
+                <div>
+                    <img src="./images-square/9.jpg" data-id="9" alt="" onclick="onOpenCanvas(this)" />
+                </div>
+                <div>
+                    <img src="./images-square/10.jpg" data-id="10" alt="" onclick="onOpenCanvas(this)" />
+                </div>
+                <div>
+                    <img src="./images-square/11.jpg" data-id="11" alt="" onclick="onOpenCanvas(this)" />
+                </div>
+                <div>
+                    <img src="./images-square/12.jpg" data-id="12" alt="" onclick="onOpenCanvas(this)" />
+                </div>
+                <div>
+                    <img src="./images-square/13.jpg" data-id="13" alt="" onclick="onOpenCanvas(this)" />
+                </div>
+                <div>
+                    <img src="./images-square/14.jpg" data-id="14" alt="" onclick="onOpenCanvas(this)" />
+                </div>
+                <div>
+                    <img src="./images-square/15.jpg" data-id="15" alt="" onclick="onOpenCanvas(this)" />
+                </div>
+                <div>
+                    <img src="./images-square/16.jpg" data-id="16" alt="" onclick="onOpenCanvas(this)" />
+                </div>
+                <div>
+                    <img src="./images-square/17.jpg" data-id="17" alt="" onclick="onOpenCanvas(this)" />
+                </div>
+                <div>
+                    <img src="./images-square/18.jpg" data-id="18" alt="" onclick="onOpenCanvas(this)" />
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div id="canvas" class="canvas-section">
+        <header class="main-header flex space-between">
+            <div class="logo"><img src="./images-square/LOGO.png" alt="" /></div>
+            <nav class="flex">
+                <a href="#">Gallery</a>
+                <a href="#">Memes</a>
+                <a href="#">About</a>
+            </nav>
+        </header>
+
+        <main class="flex space-around">
+            <div class="canvas-container">
+                <canvas height="500" width="500"></canvas>
+            </div>
+
+            <div class="controllers flex column">
+
+                <input type="text" name="text-line" oninput="onSetText(this)" />
+
+                <div class="buttons flex">
+                    <button onclick="onChangeLine()">updown</button>
+                    <button onclick="onAddLine()">add</button>
+                    <button onclick="onDeleteLine()">delete</button>
+                </div>
+                <div class="main-part grid">
+                    <button class="font-up" onclick="onChangeFontSize('up')">A+</button>
+                    <button class="font-down" onclick="onChangeFontSize('down')">A-</button>
+                    <button class="align-left" onclick="onSetAlign('right')"><i class="fas fa-align-left"></i></button>
+                    <button class="align-center" onclick="onSetAlign('center')"><i class="fas fa-align-center"></i></button>
+                    <button class="align-right" onclick="onSetAlign('left')"><i class="fas fa-align-right"></i></button>
+                    <button class="color-picker">color</button>
+                    <select class="fonts" name="fonts" onchange="onChangeFont(this.value)">
+                        <option class="impact" value="impact">IMPACT</option>
+                        <option class="karantina" value="karantina">KARANTINA</option>
+                        <option class="ZenDots" value="ZenDots">ZEN DOTS</option>
+                        <option class="GemunuLibre" value="GemunuLibre">GEMUNU LIBRE</option>
+                    </select>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="memes" data-target="memes"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+    <script src="./js/services/color-service.js"></script>
+    <script src="./js/services/meme-service.js"></script>
+    <script src="./js/services/gallery-service.js"></script>
+    <script src="./js/services/canvas-service.js"></script>
+    <script src="./js/controllers/controller.js"></script>
+</body>
+
+</html>
