@@ -96,3 +96,15 @@ const gImages = [
 function findImgById(id) {
     return gImages.find(img => img.id === id)
 }
+
+function getImgs() {
+    return gImages
+}
+
+function getImgsToRender(searchStr) {
+    const filteredImages = gImages.filter(image => (
+        image.keywords.some(keyword => keyword.includes(searchStr.toLowerCase()))
+    ))
+
+    return filteredImages
+}

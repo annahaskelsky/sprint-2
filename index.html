@@ -18,7 +18,7 @@
     <div id="gallery" class="gallery-section" data-target="gallery">
         <header class="main-header flex space-between">
             <div class="logo"><img src="./images-square/LOGO.png" alt="" /></div>
-            <nav>
+            <nav class="flex align-center">
                 <a href="#">Gallery</a>
                 <a href="#">Memes</a>
                 <a href="#">About</a>
@@ -27,74 +27,23 @@
 
         <div class="main-area">
             <section class="search flex space-between">
-                <input type="text" name="search" autocomplete="off" />
-                <i class="fas fa-search fa-lg"></i>
+                <div class="search-wrapper">    
+                    <input oninput="onHandleSearch(this.value)" type="text" name="search" autocomplete="off" />
+                    <i class="fas fa-search fa-lg"></i>
+                </div>
+                <div class="middle-wrapper">
                 <div class="tags flex">
                     <div>Funny</div>
                     <div>Animals</div>
-                    <div>Men</div>
-                    <div>Women</div>
                     <div>Comic</div>
                     <div>Smile</div>
                 </div>
                 <button class="more">More</button>
+            </div>
             </section>
 
             <section class="gallery grid">
-                <div>
-                    <img src="./images-square/1.jpg" data-id="1" alt="" onclick="onOpenCanvas(this)" />
-                </div>
-                <div>
-                    <img src="./images-square/2.jpg" data-id="2" alt="" onclick="onOpenCanvas(this)" />
-                </div>
-                <div>
-                    <img src="./images-square/3.jpg" data-id="3" alt="" onclick="onOpenCanvas(this)" />
-                </div>
-                <div>
-                    <img src="./images-square/4.jpg" data-id="4" alt="" onclick="onOpenCanvas(this)" />
-                </div>
-                <div>
-                    <img src="./images-square/5.jpg" data-id="5" alt="" onclick="onOpenCanvas(this)" />
-                </div>
-                <div>
-                    <img src="./images-square/6.jpg" data-id="6" alt="" onclick="onOpenCanvas(this)" />
-                </div>
-                <div>
-                    <img src="./images-square/7.jpg" data-id="7" alt="" onclick="onOpenCanvas(this)" />
-                </div>
-                <div>
-                    <img src="./images-square/8.jpg" data-id="8" alt="" onclick="onOpenCanvas(this)" />
-                </div>
-                <div>
-                    <img src="./images-square/9.jpg" data-id="9" alt="" onclick="onOpenCanvas(this)" />
-                </div>
-                <div>
-                    <img src="./images-square/10.jpg" data-id="10" alt="" onclick="onOpenCanvas(this)" />
-                </div>
-                <div>
-                    <img src="./images-square/11.jpg" data-id="11" alt="" onclick="onOpenCanvas(this)" />
-                </div>
-                <div>
-                    <img src="./images-square/12.jpg" data-id="12" alt="" onclick="onOpenCanvas(this)" />
-                </div>
-                <div>
-                    <img src="./images-square/13.jpg" data-id="13" alt="" onclick="onOpenCanvas(this)" />
-                </div>
-                <div>
-                    <img src="./images-square/14.jpg" data-id="14" alt="" onclick="onOpenCanvas(this)" />
-                </div>
-                <div>
-                    <img src="./images-square/15.jpg" data-id="15" alt="" onclick="onOpenCanvas(this)" />
-                </div>
-                <div>
-                    <img src="./images-square/16.jpg" data-id="16" alt="" onclick="onOpenCanvas(this)" />
-                </div>
-                <div>
-                    <img src="./images-square/17.jpg" data-id="17" alt="" onclick="onOpenCanvas(this)" />
-                </div>
-                <div>
-                    <img src="./images-square/18.jpg" data-id="18" alt="" onclick="onOpenCanvas(this)" />
-                </div>
+    
             </section>
         </div>
     </div>
@@ -102,16 +51,18 @@
     <div id="canvas" class="canvas-section">
         <header class="main-header flex space-between">
             <div class="logo"><img src="./images-square/LOGO.png" alt="" /></div>
-            <nav class="flex">
+            <nav class="flex align-center">
                 <a href="#">Gallery</a>
                 <a href="#">Memes</a>
                 <a href="#">About</a>
             </nav>
         </header>
 
-        <main class="flex space-around">
+        <main class="editor flex space-around">
+            <div class="canvas-wrapper">
             <div class="canvas-container">
                 <canvas height="500" width="500"></canvas>
+            </div>
             </div>
 
             <div class="controllers flex column">
@@ -119,17 +70,25 @@
                 <input type="text" name="text-line" oninput="onSetText(this)" />
 
                 <div class="buttons flex">
-                    <button onclick="onChangeLine()">updown</button>
-                    <button onclick="onAddLine()">add</button>
-                    <button onclick="onDeleteLine()">delete</button>
+                    <button class="switch-line flex align-center" onclick="onChangeLine()">
+                        <img src="./images-square/icons/arrow-up.png" alt="">
+                        <img src="./images-square/icons/arrow-down.png" alt="">
+                    </button>
+                    <button onclick="onAddLine()">+</button>
+                    <button class="flex align-center justify-center" onclick="onDeleteLine()">
+                        <img src="./images-square/icons/delete.png" alt="">
+                    </button>
                 </div>
-                <div class="main-part grid">
+                <div class="main-part grid justify-center align-center">
                     <button class="font-up" onclick="onChangeFontSize('up')">A+</button>
                     <button class="font-down" onclick="onChangeFontSize('down')">A-</button>
                     <button class="align-left" onclick="onSetAlign('right')"><i class="fas fa-align-left"></i></button>
-                    <button class="align-center" onclick="onSetAlign('center')"><i class="fas fa-align-center"></i></button>
+                    <button class="align-center" onclick="onSetAlign('center')"><i
+                            class="fas fa-align-center"></i></button>
                     <button class="align-right" onclick="onSetAlign('left')"><i class="fas fa-align-right"></i></button>
-                    <button class="color-picker">color</button>
+                    <button class="color-picker flex align-center">
+                        <img src="./images-square/icons/palette.png" alt="">
+                    </button>
                     <select class="fonts" name="fonts" onchange="onChangeFont(this.value)">
                         <option class="impact" value="impact">IMPACT</option>
                         <option class="karantina" value="karantina">KARANTINA</option>
@@ -137,17 +96,30 @@
                         <option class="GemunuLibre" value="GemunuLibre">GEMUNU LIBRE</option>
                     </select>
                 </div>
+
+                <div class="bottom-btns flex justify-center">
+                <button class="save-btn" onclick="onSaveMeme()"><i class="fas fa-save"></i>Save</button>
+                <button class="share-btn" onclick="onShareMeme()"><i class="fas fa-share-alt"></i>Share</button>
+                <button class="download-btn">
+                    <a href="#" class="btn" onclick="onDownloadMeme(this)" download="my-meme.jpg"><i class="fas fa-download"></i>Download as
+                        jpeg</a></button>
+                    </div>
+                <p class="user-msg"></p>
+                <div class="share-container"></div>
             </div>
+
         </main>
     </div>
+    
+    <div id="memes" data-target="memes" onclick="openMemes()"></div>
+    <!-- <div id="memes" data-target="memes" onclick="openMemes()"></div> -->
 
-    <div id="memes" data-target="memes"></div>
-
+    <script src="./js/services/storage-service.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
     <script src="./js/services/color-service.js"></script>
     <script src="./js/services/meme-service.js"></script>
     <script src="./js/services/gallery-service.js"></script>
-    <script src="./js/services/canvas-service.js"></script>
+    <script src="./js/services/upload-service.js"></script>
     <script src="./js/controllers/controller.js"></script>
 </body>
 
