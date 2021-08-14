@@ -121,7 +121,7 @@ const checkLineClicked = ({ x, y }, isTouch) => {
     const currLine = getCurrLine()
     const isDesktop = window.innerWidth > 1150
     let linePos
-    if(isTouch && !isDesktop) linePos = currLine.mobilePos
+    if (isTouch && !isDesktop) linePos = currLine.mobilePos
     else if (isTouch && isDesktop) linePos = currLine.tabletPos
     else linePos = currLine.pos
     const width = getTextWidth() + 40
@@ -137,13 +137,13 @@ const checkStickerClicked = ({ x, y }, isTouch) => {
     const meme = getMeme()
     const stickers = getMemeStickers()
     const elCanvas = document.querySelector('canvas')
-    const canvasWidth = +window.getComputedStyle(elCanvas, null).getPropertyValue('width').slice(0,3)
+    const canvasWidth = +window.getComputedStyle(elCanvas, null).getPropertyValue('width').slice(0, 3)
     const isMobile = (canvasWidth < 400)
     let stickerPos
 
     const currentStickerIdx = stickers.findIndex(sticker => {
-        if(isTouch && !isMobile) stickerPos = sticker.mobilePos
-        else if(isTouch && isMobile) stickerPos = sticker.tabletPos
+        if (isTouch && !isMobile) stickerPos = sticker.mobilePos
+        else if (isTouch && isMobile) stickerPos = sticker.tabletPos
         else stickerPos = sticker.pos
         const startX = stickerPos.x
         const endX = startX + 100
@@ -246,7 +246,7 @@ const onAddLine = () => {
 }
 
 const getEvPos = ev => {
-    
+
     const pos = {
         x: ev.offsetX,
         y: ev.offsetY
@@ -255,10 +255,8 @@ const getEvPos = ev => {
         const rect = ev.target.getBoundingClientRect()
         ev.preventDefault()
         ev = ev.changedTouches[0]
-        pos = {
-            x: ev.clientX - rect.x,
-            y: ev.clientY - rect.y
-        }
+        pos.x = ev.clientX - rect.x
+        pos.y = ev.clientY - rect.y
     }
     return pos
 }
@@ -346,7 +344,7 @@ const onStickerClicked = elSticker => {
     img.src = sticker.src
     img.onload = () => {
         gCtx.drawImage(img, sticker.pos.x, sticker.pos.y, 100, 100)
-       
+
     }
     renderCanvas()
 }

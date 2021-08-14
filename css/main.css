@@ -85,7 +85,7 @@ button {
     cursor: default;
 }
 
-.about-page > p {
+.about-page>p {
     line-height: 2;
     font-size: 1.2rem;
 }
@@ -110,6 +110,7 @@ button {
     padding: 10px 0 10px 20px;
     object-fit: cover;
     min-width: 100px;
+    max-width: 40%;
     cursor: pointer;
 }
 
@@ -163,6 +164,10 @@ body.menu-open .screen {
     color: #fff;
     font-size: 1.3125rem;
     border-bottom: 1px solid #ffff;
+}
+
+.main-nav a:hover {
+    border-bottom: 2px solid #fff;
 }
 
 /* GALLERY */
@@ -265,6 +270,14 @@ button.clear {
     border-radius: 2rem;
     padding: 10px 25px;
     font-size: .7rem;
+}
+
+button.clear:hover {
+    background: linear-gradient(-86deg, #33be6d8f 0%, #0c99b998 100%);
+}
+
+button.clear:active {
+    background: linear-gradient(-86deg, #33be6dc5 0%, #0c99b9c4 100%);
 }
 
 .gallery {
@@ -382,7 +395,9 @@ input[name=text-line]:focus {
 
 .buttons>button, .main-part button, .delete-sticker-btn {
     border: none;
+    max-width: 55px;
     width: 55px;
+    min-width: 55px;
     height: 55px;
     border-radius: 0.625rem;
     display: flex;
