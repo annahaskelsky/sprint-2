@@ -1,16 +1,22 @@
 'use strict'
 
 var gMeme
-var gMemes = []
+let gMemes = []
+
+const setGMemes = () => {
+    gMemes = loadFromStorage('memesDB') || []
+}
 
 function createMeme(image) {
     gMeme = {
         selectedImgId: image.id,
         currLineIdx: 0,
+        currStickerIdx: null,
+        lastStickerClickedIdx: null,
         isSave: false,
         lines: [
             {
-                txt: 'Your Text Here',
+                txt: 'Your Caption Here',
                 size: 40,
                 align: 'center',
                 color: 'white',
@@ -18,20 +24,43 @@ function createMeme(image) {
                 pos: { x: 250, y: 100 },
                 isDrag: false
             }
-        ]
+        ],
+        stickers: []
     }
+}
+
+const addSticker = sticker => {
+    gMeme.stickers.push(sticker)
+}
+
+const getMemeStickers = () => {
+    return gMeme.stickers
 }
 
 function getMeme() {
     return gMeme
 }
 
+function setGMeme(meme) {
+    gMeme = meme
+}
+
 function setText(txt) {
+    if (!gMeme.lines.length) onAddLine()
     gMeme.lines[gMeme.currLineIdx].txt = txt
 }
 
 function setAlign(direction) {
-    gMeme.lines[gMeme.currLineIdx].align = direction
+    const elCanvasContainer = document.querySelector('.canvas-container')
+    const canvasStyle = window.getComputedStyle(elCanvasContainer, null).getPropertyValue('width');
+    const canvasWidth = parseFloat(canvasStyle);
+    console.log(canvasWidth);
+    // gMeme.lines[gMeme.currLineIdx].align = direction
+    const currLine = gMeme.lines[gMeme.currLineIdx]
+    const width = getTextWidth()
+    if (direction === 'left') currLine.pos.x = 500 - (width / 2) - 10
+    else if (direction === 'right') currLine.pos.x = (width / 2) + 10
+    else currLine.pos.x = 250
 }
 
 function changeFontSize(direction) {
@@ -51,7 +80,7 @@ function addLine() {
     var line
     if (!gMeme.lines.length) {
         line = {
-            txt: 'Your Text Here',
+            txt: 'Your Caption Here',
             size: 40,
             align: 'center',
             color: 'white',
@@ -61,7 +90,7 @@ function addLine() {
         }
     } else if (gMeme.lines.length === 1) {
         line = {
-            txt: 'Your Text Here',
+            txt: 'Your Caption Here',
             size: 40,
             align: 'center',
             color: 'white',
@@ -71,7 +100,7 @@ function addLine() {
         }
     } else {
         line = {
-            txt: 'Your Text Here',
+            txt: 'Your Caption Here',
             size: 40,
             align: 'center',
             color: 'white',
@@ -92,6 +121,10 @@ function getCurrLine() {
     return gMeme.lines[gMeme.currLineIdx]
 }
 
+function getCurrSticker() {
+    return gMeme.stickers[gMeme.currStickerIdx]
+}
+
 function getTextWidth() {
     return gCtx.measureText(gMeme.lines[gMeme.currLineIdx].txt).width
 }
@@ -109,16 +142,31 @@ function deleteLine() {
 
 function saveMeme() {
     var imgContent = gCanvas.toDataURL('image/jpeg')
-    gMemes.push(imgContent)
+    var memeToSave = {
+        imgContent,
+        gMeme
+    }
+    gMemes.push(memeToSave)
     saveToStorage('memesDB', gMemes)
+    renderMemes()
 }
 
 function renderMemes() {
     var memes = loadFromStorage('memesDB')
-    if (!memes || !memes.length) return
+    if (!memes?.length) return
     var strHTMLs = ''
-    memes.forEach(meme => {
-        strHTMLs += `<div class="meme-holder"><img src=${meme}></div>`
+    memes.map((meme, i) => {
+        strHTMLs += `<div class="meme-holder"><img src=${meme.imgContent} onclick="onOpenEditor(${i})"></div>`
     })
-    document.querySelector('#memes').innerHTML = strHTMLs
+    document.querySelector('.memes-container').innerHTML = strHTMLs
+}
+
+function deleteSticker() {
+    const idx = gMeme.lastStickerClickedIdx
+    console.log(idx);
+    const currSticker = gMeme.stickers[idx]
+    console.log(currSticker);
+    if(!currSticker) return
+    gMeme.stickers.splice(idx, 1)
+    console.log(gMeme.stickers);
 }

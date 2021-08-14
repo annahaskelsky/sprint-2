@@ -10,117 +10,139 @@
     <!-- 'classic' theme -->
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
-        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/main.css" />
+        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css/main.css" />
 </head>
 
 <body onload="onInit()">
-    <div id="gallery" class="gallery-section" data-target="gallery">
-        <header class="main-header flex space-between">
-            <div class="logo"><img src="./images-square/LOGO.png" alt="" /></div>
-            <nav class="flex align-center">
-                <a href="#">Gallery</a>
-                <a href="#">Memes</a>
-                <a href="#">About</a>
-            </nav>
-        </header>
-
+    <div class="screen"></div>
+    <header class="main-header flex space-between">
+        <div class="logo" onclick="onPageChange('gallery')">
+            <img src="./images-square/LOGO.png" alt="" />
+        </div>
+        <nav class="flex align-center main-nav">
+            <a href="#" onclick="onPageChange('gallery')">Gallery</a>
+            <a href="#" onclick="onPageChange('memes')">Memes</a>
+            <a href="#" onclick="onPageChange('about')">About</a>
+        </nav>
+        <button class="btn-menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-angle-double-left fa-inverse"></i>
+        </button>
+    </header>
+    <div class="gallery-page" data-target="gallery">
         <div class="main-area">
-            <section class="search flex space-between">
-                <div class="search-wrapper">    
-                    <input oninput="onHandleSearch(this.value)" type="text" name="search" autocomplete="off" />
+            <section class="search grid">
+                <div class="search-wrapper">
                     <i class="fas fa-search fa-lg"></i>
+                    <input oninput="onHandleSearch(this.value)" placeholder="Search" name="search" autocomplete="off" />
                 </div>
-                <div class="middle-wrapper">
+                <button onclick="onClearFilters()" class="clear">Clear</button>
                 <div class="tags flex">
-                    <div>Funny</div>
-                    <div>Animals</div>
-                    <div>Comic</div>
-                    <div>Smile</div>
+                    <div class="tags-first">
+                        <div onclick="onKeywordClick(this)">Child</div>
+                        <div onclick="onKeywordClick(this)">Dog</div>
+                        <div onclick="onKeywordClick(this)">Cute</div>
+                    </div>
+                    <div class="tags-second">
+                        <div onclick="onKeywordClick(this)">Comic</div>
+                        <div onclick="onKeywordClick(this)">Politics</div>
+                        <div onclick="onKeywordClick(this)">Funny</div>
+                    </div>
                 </div>
-                <button class="more">More</button>
-            </div>
             </section>
 
-            <section class="gallery grid">
-    
-            </section>
+            <section class="gallery grid"></section>
         </div>
     </div>
 
-    <div id="canvas" class="canvas-section">
-        <header class="main-header flex space-between">
-            <div class="logo"><img src="./images-square/LOGO.png" alt="" /></div>
-            <nav class="flex align-center">
-                <a href="#">Gallery</a>
-                <a href="#">Memes</a>
-                <a href="#">About</a>
-            </nav>
-        </header>
-
+    <div class="editor-page">
         <main class="editor flex space-around">
             <div class="canvas-wrapper">
-            <div class="canvas-container">
-                <canvas height="500" width="500"></canvas>
-            </div>
+                <div class="canvas-container">
+                    <canvas height="500" width="500"></canvas>
+                </div>
             </div>
 
             <div class="controllers flex column">
-
-                <input type="text" name="text-line" oninput="onSetText(this)" />
-
+                
                 <div class="buttons flex">
                     <button class="switch-line flex align-center" onclick="onChangeLine()">
-                        <img src="./images-square/icons/arrow-up.png" alt="">
-                        <img src="./images-square/icons/arrow-down.png" alt="">
+                        <img src="./images-square/icons/arrow-up.png" alt="" />
+                        <img src="./images-square/icons/arrow-down.png" alt="" />
                     </button>
                     <button onclick="onAddLine()">+</button>
                     <button class="flex align-center justify-center" onclick="onDeleteLine()">
-                        <img src="./images-square/icons/delete.png" alt="">
+                        <img src="./images-square/icons/delete.png" alt="" />
                     </button>
                 </div>
-                <div class="main-part grid justify-center align-center">
-                    <button class="font-up" onclick="onChangeFontSize('up')">A+</button>
-                    <button class="font-down" onclick="onChangeFontSize('down')">A-</button>
-                    <button class="align-left" onclick="onSetAlign('right')"><i class="fas fa-align-left"></i></button>
-                    <button class="align-center" onclick="onSetAlign('center')"><i
-                            class="fas fa-align-center"></i></button>
-                    <button class="align-right" onclick="onSetAlign('left')"><i class="fas fa-align-right"></i></button>
-                    <button class="color-picker flex align-center">
-                        <img src="./images-square/icons/palette.png" alt="">
-                    </button>
-                    <select class="fonts" name="fonts" onchange="onChangeFont(this.value)">
-                        <option class="impact" value="impact">IMPACT</option>
-                        <option class="karantina" value="karantina">KARANTINA</option>
-                        <option class="ZenDots" value="ZenDots">ZEN DOTS</option>
-                        <option class="GemunuLibre" value="GemunuLibre">GEMUNU LIBRE</option>
-                    </select>
-                </div>
-
-                <div class="bottom-btns flex justify-center">
-                <button class="save-btn" onclick="onSaveMeme()"><i class="fas fa-save"></i>Save</button>
-                <button class="share-btn" onclick="onShareMeme()"><i class="fas fa-share-alt"></i>Share</button>
-                <button class="download-btn">
-                    <a href="#" class="btn" onclick="onDownloadMeme(this)" download="my-meme.jpg"><i class="fas fa-download"></i>Download as
-                        jpeg</a></button>
+                <input type="text" name="text-line" spellcheck="false" oninput="onSetText(this)"
+                    onblur="onBlurCheck()" />
+                <div class="main-part justify-center align-center">
+                    <div>
+                        <button class="font-up" onclick="onChangeFontSize('up')">
+                            A+
+                        </button>
+                        <button class="font-down" onclick="onChangeFontSize('down')">
+                            A-
+                        </button>
+                        <button class="align-left" onclick="onSetAlign('right')">
+                            <i class="fas fa-align-left"></i>
+                        </button>
+                        <button class="align-center" onclick="onSetAlign('center')">
+                            <i class="fas fa-align-center"></i>
+                        </button>
+                        <button class="align-right" onclick="onSetAlign('left')">
+                            <i class="fas fa-align-right"></i>
+                        </button>
                     </div>
-                <p class="user-msg"></p>
-                <div class="share-container"></div>
+                    <div>
+                        <select class="fonts" name="fonts" onchange="onChangeFont(this.value)">
+                            <option class="impact" value="impact">IMPACT</option>
+                            <option class="karantina" value="karantina">KARANTINA</option>
+                            <option class="ZenDots" value="ZenDots">ZEN DOTS</option>
+                            <option class="GemunuLibre" value="GemunuLibre">
+                                GEMUNU LIBRE
+                            </option>
+                        </select>
+                        <button class="color-picker flex align-center">
+                            <img src="./images-square/icons/palette.png" alt="" />
+                        </button>
+                    </div>
+                </div>
+                <div class="sticker-container flex"></div>
+                <div class="bottom-btns flex justify-center">
+                    <button class="save-btn" onclick="onSaveMeme(this)">
+                        <i class="fas fa-save"></i>Save
+                    </button>
+                    <button class="share-btn" onclick="onShareMeme()">
+                        <i class="fas fa-share-alt"></i>Share
+                    </button>
+                    <button class="download-btn">
+                        <a href="#" class="btn" onclick="onDownloadMeme(this)"><i class="fas fa-download"></i>Download</a>
+                    </button>
+                </div>
             </div>
 
-        </main>
     </div>
-    
-    <div id="memes" data-target="memes" onclick="openMemes()"></div>
+    </main>
+    </div>
+
+    <div class="memes-page">
+        <div class="memes-container grid"></div>
+    </div>
+
+    <div class="about-page"></div>
     <!-- <div id="memes" data-target="memes" onclick="openMemes()"></div> -->
 
-    <script src="./js/services/storage-service.js"></script>
+    <script src="js/services/storage-service.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
-    <script src="./js/services/color-service.js"></script>
-    <script src="./js/services/meme-service.js"></script>
-    <script src="./js/services/gallery-service.js"></script>
-    <script src="./js/services/upload-service.js"></script>
-    <script src="./js/controllers/controller.js"></script>
+    <script src="js/services/color-service.js"></script>
+    <script src="js/services/sticker-service.js"></script>
+    <script src="js/services/meme-service.js"></script>
+    <script src="js/services/gallery-service.js"></script>
+    <script src="js/services/upload-service.js"></script>
+    <script src="js/controllers/page-controller.js"></script>
+    <script src="js/controllers/controller.js"></script>
 </body>
 
 </html>

@@ -6,7 +6,6 @@ function shareMeme() {
     // A function to be called if request succeeds
     function onSuccess(uploadedImgUrl) {
         const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
-        document.querySelector('.user-msg').innerText = `Your photo is available here: ${uploadedImgUrl}`
 
         window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`, '_blank')
     }
