@@ -43,19 +43,24 @@ const addTouchListeners = () => {
 
 const onDown = ev => {
     const pos = getEvPos(ev)
-console.log(pos);
+    const isTouch = checkIfTouch(ev)
+    console.log(pos);
     const currLine = getCurrLine()
-    checkStickerClicked(pos)
+    checkStickerClicked(pos, isTouch)
     const currSticker = getCurrSticker()
     if (currSticker) {
         gStartPos = pos
         document.querySelector('canvas').style.cursor = 'grabbing'
     }
-    if (checkLineClicked(pos)) {
+    if (checkLineClicked(pos, isTouch)) {
         currLine.isDrag = true
         gStartPos = pos
         document.querySelector('canvas').style.cursor = 'grabbing'
     }
+}
+
+const checkIfTouch = (ev) => {
+    return gTouchEvents.includes(ev.type)
 }
 
 const onMove = ev => {
@@ -119,9 +124,17 @@ const drawSticker = sticker => {
     }
 }
 
-const checkLineClicked = ({ x, y }) => {
+const checkLineClicked = ({ x, y }, isTouch) => {
     var currLine = getCurrLine()
-    var linePos = currLine.pos
+    const elCanvas = document.querySelector('canvas')
+    const canvasWidth = +window.getComputedStyle(elCanvas, null).getPropertyValue('width').slice(0,3)
+    const isMobile = (canvasWidth < 400)
+    // const isTouch = checkIfTouch()
+    var linePos
+    if(isTouch && isMobile) linePos = currLine.mobilePos
+    else if (isTouch && !isMobile) linePos = currLine.tabletPos
+    else linePos = currLine.pos
+    // var linePos = isTouch ? currLine.mobilePos : currLine.pos
     var width = getTextWidth() + 40
     var height = currLine.size + 40
     var startX = linePos.x - (width / 2) - 5
@@ -131,14 +144,22 @@ const checkLineClicked = ({ x, y }) => {
     return (x >= startX && x <= endX && y >= startY && y <= endY)
 }
 
-const checkStickerClicked = ({ x, y }) => {
+const checkStickerClicked = ({ x, y }, isTouch) => {
     const meme = getMeme()
     const stickers = getMemeStickers()
+    const elCanvas = document.querySelector('canvas')
+    const canvasWidth = +window.getComputedStyle(elCanvas, null).getPropertyValue('width').slice(0,3)
+    const isMobile = (canvasWidth < 400)
+    var stickerPos
 
     const currentStickerIdx = stickers.findIndex(sticker => {
-        const startX = sticker.pos.x
+        if(isTouch && isMobile) stickerPos = sticker.mobilePos
+        else if(isTouch && !isMobile) stickerPos = sticker.tabletPos
+        else stickerPos = sticker.pos
+        // const stickerPos = isTouch ? sticker.mobilePos : sticker.pos
+        const startX = stickerPos.x
         const endX = startX + 100
-        const startY = sticker.pos.y
+        const startY = stickerPos.y
         const endY = startY + 100
         return x >= startX && x <= endX && y >= startY && y <= endY
     })
@@ -195,7 +216,7 @@ const renderCanvas = () => {
         })
         meme.stickers.forEach(sticker => {
             drawSticker(sticker)
-            if(!meme.isSave) drawRect(false)
+            if (!meme.isSave) drawRect(false)
         })
     }
 }
@@ -237,18 +258,26 @@ const onAddLine = () => {
 }
 
 const getEvPos = ev => {
+    
     var pos = {
         x: ev.offsetX,
         y: ev.offsetY
     }
     if (gTouchEvents.includes(ev.type)) {
+        // console.log(ev);
+        var rect = ev.target.getBoundingClientRect();
+        // console.log(rect);
         ev.preventDefault()
+        // console.log(ev.changedTouches[0].clientX, ev.changedTouches[0].clientY);
         ev = ev.changedTouches[0]
         pos = {
-            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
-            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
+            // x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+            // y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
+            x: ev.clientX - rect.x,
+            y: ev.clientY - rect.y
         }
     }
+    console.log(pos);
     return pos
 }
 
@@ -282,7 +311,7 @@ const drawRect = (isLine) => {
     } else {
         const currSticker = meme.stickers[meme.lastStickerClickedIdx]
         console.log(currSticker);
-        if(!currSticker) return
+        if (!currSticker) return
         gCtx.strokeRect(currSticker.pos.x, currSticker.pos.y, 100, 100)
     }
 }

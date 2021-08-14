@@ -22,6 +22,8 @@ function createMeme(image) {
                 color: 'white',
                 font: 'impact',
                 pos: { x: 250, y: 100 },
+                mobilePos:{ x: 105, y: 36 },
+                tabletPos: { x: 225, y: 75 },
                 isDrag: false
             }
         ],
@@ -86,6 +88,8 @@ function addLine() {
             color: 'white',
             font: 'impact',
             pos: { x: 250, y: 100 },
+            mobilePos:{ x: 105, y: 36 },
+            tabletPos: { x: 225, y: 75 },
             isDrag: false
         }
     } else if (gMeme.lines.length === 1) {
@@ -96,6 +100,8 @@ function addLine() {
             color: 'white',
             font: 'impact',
             pos: { x: 250, y: 450 },
+            mobilePos:{ x: 105, y: 187 },
+            tabletPos: { x: 225, y: 400 },
             isDrag: false
         }
     } else {
@@ -106,6 +112,8 @@ function addLine() {
             color: 'white',
             font: 'impact',
             pos: { x: 250, y: 275 },
+            mobilePos:{ x: 105, y: 110 },
+            tabletPos: { x: 225, y: 240 },
             isDrag: false
         }
     }
