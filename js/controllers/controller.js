@@ -65,11 +65,12 @@ const checkIfTouch = (ev) => {
 const onMove = ev => {
     const currLine = getCurrLine()
     const currSticker = getCurrSticker()
+    
     if (!currLine?.isDrag && !currSticker) return
     const pos = getEvPos(ev)
     const dx = pos.x - gStartPos.x
     const dy = pos.y - gStartPos.y
-    if (currLine.isDrag) {
+    if (currLine?.isDrag) {
         currLine.pos.x += dx
         currLine.pos.y += dy
     } else {
@@ -84,6 +85,7 @@ const onUp = () => {
     const meme = getMeme()
     meme.currStickerIdx = null
     const currLine = getCurrLine()
+    if (!currLine) return
     currLine.isDrag = false
     document.querySelector('canvas').style.cursor = 'grab'
 }
@@ -119,6 +121,7 @@ const drawSticker = sticker => {
 
 const checkLineClicked = ({ x, y }, isTouch) => {
     const currLine = getCurrLine()
+    if (!currLine) return
     const isDesktop = window.innerWidth > 1150
     let linePos
     if (isTouch && !isDesktop) linePos = currLine.mobilePos
@@ -142,8 +145,8 @@ const checkStickerClicked = ({ x, y }, isTouch) => {
     let stickerPos
 
     const currentStickerIdx = stickers.findIndex(sticker => {
-        if (isTouch && !isMobile) stickerPos = sticker.mobilePos
-        else if (isTouch && isMobile) stickerPos = sticker.tabletPos
+        if (isTouch && isMobile) stickerPos = sticker.mobilePos
+        else if (isTouch && !isMobile) stickerPos = sticker.tabletPos
         else stickerPos = sticker.pos
         const startX = stickerPos.x
         const endX = startX + 100
@@ -286,6 +289,7 @@ const drawRect = (isLine) => {
     gCtx.strokeStyle = 'black'
     if (isLine) {
         const currLine = getCurrLine()
+        if (!currLine) return
         const width = getTextWidth()
         gCtx.strokeRect(currLine.pos.x - width / 2 - 20, currLine.pos.y - currLine.size, width + 40, currLine.size + 10)
     } else {
@@ -367,7 +371,8 @@ const renderEditor = meme => {
     img.onload = () => {
         clearCanvas()
         gCtx.drawImage(img, 0, 0)
-        document.querySelector('[name=text-line]').value = currMeme.lines[0].txt
+        const memeFirstLine = currMeme.lines[0]?.txt
+        if (memeFirstLine) document.querySelector('[name=text-line]').value = memeFirstLine
         currMeme.lines.forEach(line => {
             drawText(line)
             if (!currMeme.isSave) drawRect(true)
