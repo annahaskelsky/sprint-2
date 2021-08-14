@@ -44,7 +44,6 @@ const addTouchListeners = () => {
 const onDown = ev => {
     const pos = getEvPos(ev)
     const isTouch = checkIfTouch(ev)
-    console.log(pos);
     const currLine = getCurrLine()
     checkStickerClicked(pos, isTouch)
     const currSticker = getCurrSticker()
@@ -67,7 +66,7 @@ const onMove = ev => {
     const currLine = getCurrLine()
     const currSticker = getCurrSticker()
     if (!currLine?.isDrag && !currSticker) return
-    var pos = getEvPos(ev)
+    const pos = getEvPos(ev)
     const dx = pos.x - gStartPos.x
     const dy = pos.y - gStartPos.y
     if (currLine.isDrag) {
@@ -84,14 +83,14 @@ const onMove = ev => {
 const onUp = () => {
     const meme = getMeme()
     meme.currStickerIdx = null
-    var currLine = getCurrLine()
+    const currLine = getCurrLine()
     currLine.isDrag = false
     document.querySelector('canvas').style.cursor = 'grab'
 }
 
 const setInputTxt = () => {
-    var meme = getMeme()
-    var idx = getCurrLineIdx()
+    const meme = getMeme()
+    const idx = getCurrLineIdx()
     if (!meme.lines[idx]) {
         document.querySelector('[name=text-line]').value = ''
         return
@@ -114,33 +113,23 @@ const drawSticker = sticker => {
     const img = new Image()
     img.src = sticker.src
     img.onload = () => {
-        // clearCanvas()
         gCtx.drawImage(img, sticker.pos.x, sticker.pos.y, 100, 100)
-        // setInputTxt()
-        // meme.lines.forEach(line => {
-        //     drawText(line)
-        //     if (!meme.isSave) drawRect()
-        // })
     }
 }
 
 const checkLineClicked = ({ x, y }, isTouch) => {
-    var currLine = getCurrLine()
-    const elCanvas = document.querySelector('canvas')
-    const canvasWidth = +window.getComputedStyle(elCanvas, null).getPropertyValue('width').slice(0,3)
-    const isMobile = (canvasWidth < 400)
-    // const isTouch = checkIfTouch()
-    var linePos
-    if(isTouch && isMobile) linePos = currLine.mobilePos
-    else if (isTouch && !isMobile) linePos = currLine.tabletPos
+    const currLine = getCurrLine()
+    const isDesktop = window.innerWidth > 1150
+    let linePos
+    if(isTouch && !isDesktop) linePos = currLine.mobilePos
+    else if (isTouch && isDesktop) linePos = currLine.tabletPos
     else linePos = currLine.pos
-    // var linePos = isTouch ? currLine.mobilePos : currLine.pos
-    var width = getTextWidth() + 40
-    var height = currLine.size + 40
-    var startX = linePos.x - (width / 2) - 5
-    var endX = linePos.x + (width / 2) + 10
-    var startY = linePos.y - (height / 2) - 20
-    var endY = linePos.y + (height / 2) + 10
+    const width = getTextWidth() + 40
+    const height = currLine.size + 40
+    const startX = linePos.x - (width / 2) - 5
+    const endX = linePos.x + (width / 2) + 10
+    const startY = linePos.y - (height / 2) - 20
+    const endY = linePos.y + (height / 2) + 10
     return (x >= startX && x <= endX && y >= startY && y <= endY)
 }
 
@@ -150,13 +139,12 @@ const checkStickerClicked = ({ x, y }, isTouch) => {
     const elCanvas = document.querySelector('canvas')
     const canvasWidth = +window.getComputedStyle(elCanvas, null).getPropertyValue('width').slice(0,3)
     const isMobile = (canvasWidth < 400)
-    var stickerPos
+    let stickerPos
 
     const currentStickerIdx = stickers.findIndex(sticker => {
-        if(isTouch && isMobile) stickerPos = sticker.mobilePos
-        else if(isTouch && !isMobile) stickerPos = sticker.tabletPos
+        if(isTouch && !isMobile) stickerPos = sticker.mobilePos
+        else if(isTouch && isMobile) stickerPos = sticker.tabletPos
         else stickerPos = sticker.pos
-        // const stickerPos = isTouch ? sticker.mobilePos : sticker.pos
         const startX = stickerPos.x
         const endX = startX + 100
         const startY = stickerPos.y
@@ -189,11 +177,11 @@ const onShareMeme = () => {
 }
 
 const onDownloadMeme = elLink => {
-    var meme = getMeme()
+    const meme = getMeme()
     meme.isSave = true
     renderCanvas()
     setTimeout(() => {
-        var imgContent = gCanvas.toDataURL('image/jpeg')
+        const imgContent = gCanvas.toDataURL('image/jpeg')
         elLink.href = imgContent
         elLink.download = "my-meme.jpeg"
         meme.isSave = false
@@ -202,8 +190,8 @@ const onDownloadMeme = elLink => {
 }
 
 const renderCanvas = () => {
-    var meme = getMeme()
-    var image = findImgById(+meme.selectedImgId)
+    const meme = getMeme()
+    const image = findImgById(+meme.selectedImgId)
     const img = new Image()
     img.src = image.url
     img.onload = () => {
@@ -212,8 +200,8 @@ const renderCanvas = () => {
         setInputTxt()
         meme.lines.forEach(line => {
             drawText(line)
-            if (!meme.isSave) drawRect(true)
         })
+        if (!meme.isSave) drawRect(true)
         meme.stickers.forEach(sticker => {
             drawSticker(sticker)
             if (!meme.isSave) drawRect(false)
@@ -222,7 +210,7 @@ const renderCanvas = () => {
 }
 
 const onSetText = elInput => {
-    var txt = elInput.value
+    const txt = elInput.value
     setText(txt)
     renderCanvas()
 }
@@ -233,7 +221,7 @@ const onBlurCheck = () => {
 }
 
 const onChangeColor = color => {
-    var newColor = color.toRGBA().toString()
+    const newColor = color.toRGBA().toString()
     changeColor(newColor)
     renderCanvas()
 }
@@ -259,25 +247,19 @@ const onAddLine = () => {
 
 const getEvPos = ev => {
     
-    var pos = {
+    const pos = {
         x: ev.offsetX,
         y: ev.offsetY
     }
     if (gTouchEvents.includes(ev.type)) {
-        // console.log(ev);
-        var rect = ev.target.getBoundingClientRect();
-        // console.log(rect);
+        const rect = ev.target.getBoundingClientRect()
         ev.preventDefault()
-        // console.log(ev.changedTouches[0].clientX, ev.changedTouches[0].clientY);
         ev = ev.changedTouches[0]
         pos = {
-            // x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
-            // y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
             x: ev.clientX - rect.x,
             y: ev.clientY - rect.y
         }
     }
-    console.log(pos);
     return pos
 }
 
@@ -310,7 +292,6 @@ const drawRect = (isLine) => {
         gCtx.strokeRect(currLine.pos.x - width / 2 - 20, currLine.pos.y - currLine.size, width + 40, currLine.size + 10)
     } else {
         const currSticker = meme.stickers[meme.lastStickerClickedIdx]
-        console.log(currSticker);
         if (!currSticker) return
         gCtx.strokeRect(currSticker.pos.x, currSticker.pos.y, 100, 100)
     }
@@ -331,11 +312,10 @@ const onHandleSearch = searchStr => {
 
 const onKeywordClick = (elKeyword) => {
     const keyword = elKeyword.innerText
-    const keywordStyle = window.getComputedStyle(elKeyword, null).getPropertyValue('font-size');
-    const keywordFontSize = parseFloat(keywordStyle);
-    // now you have a proper float for the font size (yes, it can be a float, not just an integer)
-    if (keywordFontSize < 22) elKeyword.style.fontSize = (keywordFontSize + 1) + 'px';
-    const images = getImgsToRender(keyword);
+    const keywordStyle = window.getComputedStyle(elKeyword, null).getPropertyValue('font-size')
+    const keywordFontSize = parseFloat(keywordStyle)
+    if (keywordFontSize < 22) elKeyword.style.fontSize = (keywordFontSize + 1) + 'px'
+    const images = getImgsToRender(keyword)
     renderImgs(images)
     document.querySelector('[name=search]').value = keyword
 }
@@ -348,7 +328,7 @@ const onClearFilters = () => {
 
 const renderStickers = () => {
     const stickers = getStickers()
-    var strHTMLs = ''
+    let strHTMLs = ''
     stickers.forEach(sticker => {
         strHTMLs += `<img class="sticker-item" src="${sticker.src}" data-id="${sticker.id}" onclick="onStickerClicked(this)">`
     })
@@ -365,22 +345,16 @@ const onStickerClicked = elSticker => {
     const img = new Image()
     img.src = sticker.src
     img.onload = () => {
-        // clearCanvas()
         gCtx.drawImage(img, sticker.pos.x, sticker.pos.y, 100, 100)
-        // setInputTxt()
-        // meme.lines.forEach(line => {
-        //     drawText(line)
-        //     if (!meme.isSave) drawRect()
-        // })
+       
     }
-    // gCtx.drawImage(sticker.src, sticker.pos.x, sticker.pos.y)
     renderCanvas()
 }
 
 const onOpenEditor = (idx) => {
-    const memes = loadFromStorage('memesDB');
+    const memes = loadFromStorage('memesDB')
     const currMeme = memes[idx].gMeme
-    renderEditor(currMeme);
+    renderEditor(currMeme)
 }
 
 const renderEditor = meme => {
@@ -407,12 +381,11 @@ const renderEditor = meme => {
     resizeCanvas()
 }
 
-function toggleMenu() {
+const toggleMenu = () => {
     document.body.classList.toggle('menu-open')
 }
 
-function onDeleteSticker() {
-    console.log(gMeme);
+const onDeleteSticker = () => {
     deleteSticker()
     renderCanvas()
 }

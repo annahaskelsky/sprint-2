@@ -1,6 +1,6 @@
 'use strict'
 
-function onOpenCanvas(image) {
+const onOpenCanvas = image => {
     document.querySelector('.editor-page').classList.add('active')
     resizeCanvas()
     createMeme(image)

@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Meme Generator</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css" />
-    <!-- 'classic' theme -->
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
         integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
@@ -64,14 +63,14 @@
             </div>
 
             <div class="controllers flex column">
-                
+
                 <div class="buttons flex">
-                    <button class="switch-line flex align-center" onclick="onChangeLine()">
+                    <button class="switch-line" onclick="onChangeLine()">
                         <img src="./images-square/icons/arrow-up.png" alt="" />
                         <img src="./images-square/icons/arrow-down.png" alt="" />
                     </button>
                     <button onclick="onAddLine()">+</button>
-                    <button class="flex align-center justify-center" onclick="onDeleteLine()">
+                    <button class="" onclick="onDeleteLine()">
                         <img src="./images-square/icons/delete.png" alt="" />
                     </button>
                 </div>
@@ -118,7 +117,8 @@
                         <i class="fas fa-share-alt"></i>Share
                     </button>
                     <button class="download-btn">
-                        <a href="#" class="btn" onclick="onDownloadMeme(this)"><i class="fas fa-download"></i>Download</a>
+                        <a href="#" class="btn" onclick="onDownloadMeme(this)"><i
+                                class="fas fa-download"></i>Download</a>
                     </button>
                 </div>
             </div>
@@ -131,8 +131,20 @@
         <div class="memes-container grid"></div>
     </div>
 
-    <div class="about-page"></div>
-    <!-- <div id="memes" data-target="memes" onclick="openMemes()"></div> -->
+    <div class="about-page">
+        <div class="logo">
+            <img src="./images-square/LOGO.png" alt="" />
+            <p>By Anna Haskelsky<br></p>
+        </div>
+        <p>
+            Welcome to my meme generator!<br>
+            The rules are simple:<br>
+            You pick an image to work on,<br>
+            You enter as many lines of text as you wish,<br>
+            You can change the text font, color, size and location, and to top it all off, you can even save and share your creation!<br>
+            I hope you enjoy your experience!<br>
+        </p>
+    </div>
 
     <script src="js/services/storage-service.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>

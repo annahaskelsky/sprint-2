@@ -48,31 +48,10 @@ button {
     src: url(../fonts/karantina/Karantina-Bold.ttf);
 }
 
-.gallery-page, .memes-page, .editor-page {
+/* GENERAL */
+
+.gallery-page, .memes-page, .editor-page, .about-page {
     display: none;
-}
-
-/* HEADER */
-
-body.menu-open .main-nav {
-    transform: translateX(0);
-}
-
-body.menu-open .btn-menu-toggle {
-    transform: rotate(180deg);
-}
-
-button.btn-menu-toggle {
-    transition: transform .5s;
-    display: flex;
-    width: 30px;
-    height: 30px;
-    justify-content: center;
-    align-items: center;
-    background: transparent;
-    border: none;
-    border-radius: 50%;
-    margin-inline-end: 15px;
 }
 
 .screen {
@@ -89,10 +68,29 @@ button.btn-menu-toggle {
     z-index: 1;
 }
 
-body.menu-open .screen {
-    /* background-color: rgb(225 225 225 / 90%); */
-    opacity: 1;
+.about-page {
+    color: #fff;
+    padding-top: 80px;
 }
+
+.about-page .logo {
+    margin: 0 auto 7rem;
+    width: 20rem;
+    height: 5rem;
+    cursor: default;
+}
+
+.about-page p {
+    text-align: center;
+    cursor: default;
+}
+
+.about-page > p {
+    line-height: 2;
+    font-size: 1.2rem;
+}
+
+/* HEADER */
 
 .main-header {
     background-image: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
@@ -118,6 +116,31 @@ body.menu-open .screen {
 .logo img {
     height: 100%;
     width: 100%;
+}
+
+button.btn-menu-toggle {
+    transition: transform .5s;
+    display: flex;
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    margin-inline-end: 15px;
+}
+
+body.menu-open .main-nav {
+    transform: translateX(0);
+}
+
+body.menu-open .btn-menu-toggle {
+    transform: rotate(180deg);
+}
+
+body.menu-open .screen {
+    opacity: 1;
 }
 
 .main-nav {
@@ -149,7 +172,6 @@ body.menu-open .screen {
     border-radius: 1.6em;
     padding: 20px;
     margin: 0 10px;
-    /* max-width: 100%; */
 }
 
 .search {
@@ -270,8 +292,9 @@ button.clear {
 }
 
 .canvas-container {
-    background-color: rgb(255 255 255 / 38%);
-    padding: 20px;
+    background-color: #383b42;
+    padding: 10px;
+    border-radius: 10px;
     margin: auto;
 }
 
@@ -311,6 +334,8 @@ input[name=text-line] {
     text-align: center;
     font-family: 'poppins regular';
     box-shadow: 1px 5px 0 #bbc4d1, inset 0 5px 0 #ffffff;
+    height: 50px;
+    font-size: 1.2rem;
 }
 
 input[name=text-line]:focus {
@@ -349,11 +374,20 @@ input[name=text-line]:focus {
     height: 55px;
 }
 
+.main-part button {
+    background-color: white;
+    font-family: 'poppins medium';
+    font-size: 1rem;
+}
+
 .buttons>button, .main-part button, .delete-sticker-btn {
     border: none;
     width: 55px;
     height: 55px;
     border-radius: 0.625rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .buttons>button:active, .delete-sticker-btn:active {
@@ -429,21 +463,6 @@ option.ZenDots {
     background-image: linear-gradient(-38deg, #cf1d37 0%, #cf1d37 1%, #f05036 100%);
 }
 
-.memes-container {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 40px;
-    justify-items: center;
-    padding-bottom: 30px;
-}
-
-.meme-holder {
-    display: flex;
-    justify-content: center;
-    width: 300px;
-    height: 300px;
-}
-
 .font-up {
     grid-area: font-up;
 }
@@ -497,7 +516,7 @@ option.ZenDots {
     border-radius: 1rem;
     border: none;
     color: #fff;
-    font-size: .8rem;
+    font-size: .7rem;
     font-family: 'poppins medium';
     display: flex;
     align-items: center;
@@ -533,6 +552,23 @@ option.ZenDots {
 .download-btn a {
     text-decoration: none;
     color: #fff;
+}
+
+/* MEMES PAGE */
+
+.memes-container {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 40px;
+    justify-items: center;
+    padding-bottom: 30px;
+}
+
+.meme-holder {
+    display: flex;
+    justify-content: center;
+    width: 300px;
+    height: 300px;
 }
 
 /* HELPERS */
@@ -624,7 +660,6 @@ option.ZenDots {
     }
     .middle-wrapper .tags {
         font-size: unset;
-        /* flex-grow: 2; */
         width: 85%;
         align-items: unset;
         align-self: center;
@@ -645,6 +680,9 @@ option.ZenDots {
     .memes-container {
         grid-template-columns: repeat(2, 1fr);
     }
+    .bottom-btns button {
+        font-size: .9rem;
+    }
 }
 
 @media (min-width: 1150px) {
@@ -660,11 +698,23 @@ option.ZenDots {
     .editor {
         flex-direction: row;
         margin: 0 20px;
+        justify-content: space-between;
     }
     .canvas-wrapper {
         height: 100vh;
     }
     .memes-container {
         grid-template-columns: repeat(3, 1fr);
+    }
+    .main-part {
+        width: 70%;
+        align-self: center;
+    }
+    input[name=text-line] {
+        width: 70%;
+    }
+    .sticker-container {
+        width: 70%;
+        align-self: center;
     }
 }

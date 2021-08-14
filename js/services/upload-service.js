@@ -1,18 +1,22 @@
 'use strict'
 
-function shareMeme() {
+const shareMeme = () => {
     const imgDataUrl = gCanvas.toDataURL("image/jpeg");
 
     // A function to be called if request succeeds
-    function onSuccess(uploadedImgUrl) {
+    const onSuccess = uploadedImgUrl => {
         const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
-
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`, '_blank')
+        const isDesktop = window.innerWidth > 1100
+        if (isDesktop) {
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`, '_blank')
+        } else {
+            navigator.share({ title: "Example Page", url: `https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}` })
+        }
     }
     doUploadImg(imgDataUrl, onSuccess);
 }
 
-function doUploadImg(imgDataUrl, onSuccess) {
+const doUploadImg = (imgDataUrl, onSuccess) => {
 
     const formData = new FormData();
     formData.append('img', imgDataUrl)
