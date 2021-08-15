@@ -113,7 +113,8 @@ const drawSticker = sticker => {
     const img = new Image()
     img.src = sticker.src
     img.onload = () => {
-        gCtx.drawImage(img, sticker.pos.x, sticker.pos.y, 80, 80)
+        const stickerSize = gCanvas.width > 400 ? 100 : 50
+        gCtx.drawImage(img, sticker.pos.x, sticker.pos.y, stickerSize, stickerSize)
     }
 }
 
@@ -284,7 +285,8 @@ const drawRect = (isLine) => {
     } else {
         const currSticker = meme.stickers[meme.lastStickerClickedIdx]
         if (!currSticker) return
-        gCtx.strokeRect(currSticker.pos.x, currSticker.pos.y, 80, 80)
+        const stickerSize = gCanvas.width > 400 ? 100 : 50
+        gCtx.strokeRect(currSticker.pos.x, currSticker.pos.y, stickerSize, stickerSize)
     }
 }
 
@@ -336,7 +338,8 @@ const onStickerClicked = elSticker => {
     const img = new Image()
     img.src = sticker.src
     img.onload = () => {
-        gCtx.drawImage(img, sticker.pos.x, sticker.pos.y, 80, 80)
+        const stickerSize = gCanvas.width > 400 ? 100 : 50
+        gCtx.drawImage(img, sticker.pos.x, sticker.pos.y, stickerSize, stickerSize)
 
     }
     renderCanvas()
