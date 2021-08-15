@@ -10,6 +10,7 @@ body {
     margin: 0;
     background-color: #22252c;
     color: #fff;
+    max-width: 100vw;
 }
 
 button {
@@ -306,9 +307,10 @@ button.clear:active {
 
 .canvas-container {
     background-color: #383b42;
-    padding: 10px;
     border-radius: 10px;
     margin: auto;
+    width: 250px;
+    height: 250px;
 }
 
 .canvas-wrapper {
@@ -324,10 +326,8 @@ button.clear:active {
 
 canvas {
     display: block;
-    margin: 0 auto;
+    margin: 0;
     background-color: white;
-    width: 500px;
-    height: 500px;
 }
 
 .controllers {
@@ -471,6 +471,7 @@ option.ZenDots {
     color: #ebeef3;
     font-size: 3.125rem;
     font-weight: bold;
+    width: 50px;
 }
 
 .buttons>button:nth-child(3), .delete-sticker-btn {
